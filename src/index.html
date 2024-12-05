@@ -1,17 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+    <meta charset="UTF-8">
+    <title>Azure Static Web Page</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #87CEEB, #E0F6FF);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+        .snowflake {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        h1 {
+            color: #0078D4;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+    </style>
 </head>
-
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
+    <h1>Azure Static Web Page</h1>
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            
+            // Random size between 2 and 6 pixels
+            const size = Math.random() * 4 + 2;
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            
+            // Random horizontal start position
+            snowflake.style.left = `${Math.random() * window.innerWidth}px`;
+            snowflake.style.top = '-10px';
+            
+            document.body.appendChild(snowflake);
+            
+            // Animation
+            const animationDuration = Math.random() * 10 + 5;
+            snowflake.animate([
+                { transform: 'translateY(0px)' },
+                { transform: `translateY(${window.innerHeight + 10}px)` }
+            ], {
+                duration: animationDuration * 1000,
+                easing: 'linear'
+            });
+            
+            // Remove snowflake after animation
+            setTimeout(() => {
+                document.body.removeChild(snowflake);
+            }, animationDuration * 1000);
+        }
 
+        // Create snowflakes periodically
+        function snowfall() {
+            createSnowflake();
+        }
+
+        // Start snowfall
+        setInterval(snowfall, 200);
+    </script>
+</body>
 </html>
